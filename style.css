@@ -1,8 +1,8 @@
+/* Reset */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: white;
 }
 
 body {
@@ -11,65 +11,56 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    color: white;
 }
 
-
 body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
     background-image: url("img/code.png");
     background-repeat: no-repeat;
     background-position: right;
-    content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0.4;
+    background-size: contain;
+    opacity: 0.2;
+    z-index: 0;
 }
 
 .container {
-    width: 1200px;
-    height: 600px;
+    max-width: 1200px;
+    width: 90%;
+    min-height: 500px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 24px;
     border: 1px solid #1875E8;
-    box-shadow: 4px 4px 20px 0px rgba(1, 8, 14, 0.15);
+    box-shadow: 4px 4px 20px rgba(1, 8, 14, 0.3);
     background-image: url("img/Ruido.png");
-    background-size: 100% 100%;
+    background-size: cover;
     position: relative;
+    z-index: 1;
+    padding: 2rem;
+    gap: 2rem;
 }
-
 
 .container__contenido {
     display: flex;
     align-items: center;
-    position: absolute;
-    bottom: 0;
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .container__informaciones {
     flex: 1;
-    padding: 3rem;
-}
-
-.container__boton {
-    border-radius: 16px;
-    background: #1875E8;
-    padding: 16px 24px;
-    width: 100%;
-    font-size: 24px;
-    font-weight: 700;
-    border: none;
-    margin-top: 2rem;
-}
-
-.container__boton:disabled {
-    background: #898989;
+    min-width: 280px;
 }
 
 .container__texto {
-    margin: 16px 0 16px 0;
+    margin-bottom: 1.5rem;
 }
 
 .container__texto-azul {
@@ -83,29 +74,80 @@ body::before {
     background-color: #FFF;
     border: none;
     color: #1875E8;
-    padding: 2rem;
+    padding: 1rem 2rem;
     font-size: 24px;
     font-weight: 700;
     font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.container__input:focus {
+    border: 2px solid #1875E8;
+    box-shadow: 0 0 8px rgba(24, 117, 232, 0.6);
 }
 
 .container__botones {
     display: flex;
-    gap: 2em;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.container__boton {
+    border-radius: 16px;
+    background: #1875E8;
+    padding: 16px 24px;
+    flex: 1;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.container__boton:hover:not(:disabled) {
+    background: #0d5db5;
+    transform: scale(1.05);
+}
+
+.container__boton:disabled {
+    background: #898989;
+    cursor: not-allowed;
 }
 
 h1 {
     font-family: 'Chakra Petch', sans-serif;
-    font-size: 72px;
-    padding-bottom: 3rem;
-}
-
-p,
-button {
-    font-family: 'Inter', sans-serif;
+    font-size: clamp(36px, 5vw, 72px);
+    margin-bottom: 1rem;
 }
 
 .texto__parrafo {
-    font-size: 32px;
+    font-size: clamp(18px, 2vw, 32px);
     font-weight: 400;
+}
+
+/* Imagen persona */
+.container__imagen-persona {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .container__contenido {
+        flex-direction: column;
+    }
+
+    .container__imagen-persona {
+        max-width: 200px;
+        margin-top: 1.5rem;
+    }
 }

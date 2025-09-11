@@ -3,70 +3,73 @@ let intentos = 0;
 let listaNumerosSorteados = [];
 let numeroMaximo = 10;
 
-function asignarTextoElemento(elemento, texto) {
-    let elementoHTML = document.querySelector(elemento);
-    elementoHTML.innerHTML = texto;
-    return;
+function asignarTextoElemento(selector, texto) {
+    const elemento = document.querySelector(selector);
+    if (elemento) {
+        elemento.innerHTML = texto;
+    }
 }
 
 function verificarIntento() {
-    let numeroDeUsuario = parseInt(document.getElementById('valorUsuario').value);
+    const numeroDeUsuario = parseInt(document.getElementById('valorUsuario').value);
 
-    if(numeroDeUsuario === numeroSecreto){
-        asignarTextoElemento('p', `Acertaste el número en ${intentos} ${(intentos === 1) ? 'vez' : 'veces'}`);
-        document.getElementById('reiniciar').removeAttribute('disabled')
+    if (isNaN(numeroDeUsuario)) {
+        asignarTextoElemento('#mensaje', '⚠️ Ingresa un número válido.');
+        return;
+    }
+
+    if (numeroDeUsuario === numeroSecreto) {
+        asignarTextoElemento('#mensaje', `🎉 ¡Acertaste el número en ${intentos} ${intentos === 1 ? 'intento' : 'intentos'}!`);
+        document.getElementById('reiniciar').removeAttribute('disabled');
     } else {
         if (numeroDeUsuario > numeroSecreto) {
-            asignarTextoElemento('p', 'El numero secreto ese menor');
-        } else{
-            asignarTextoElemento('p', 'El numero secreto es mayor');
+            asignarTextoElemento('#mensaje', 'El número secreto es menor ⬇️');
+        } else {
+            asignarTextoElemento('#mensaje', 'El número secreto es mayor ⬆️');
         }
         intentos++;
         limpiarCaja();
     }
-    return;
 }
 
-function limpiarCaja(){
+function limpiarCaja() {
     document.querySelector('#valorUsuario').value = '';
 }
 
 function generarNumeroSecreto() {
-    let numeroGenerado = Math.floor(Math.random() * numeroMaximo) + 1;
-
-    console.log(numeroGenerado);
-    console.log(listaNumerosSorteados);
-    //Si ya sorteamos todos los numeors secretos
-    if (listaNumerosSorteados.length == numeroMaximo) {
-        asignarTextoElemento('p', 'Ya se sortearon todos lo numeros posibles');
-    } else {
-
-        if (listaNumerosSorteados.includes(numeroGenerado)) {
-            return generarNumeroSecreto();
-        } else{
-            listaNumerosSorteados.push(numeroGenerado);
-            return numeroGenerado;
-        }
+    if (listaNumerosSorteados.length === numeroMaximo) {
+        asignarTextoElemento('#mensaje', '🎯 Ya se sortearon todos los números posibles');
+        return null;
     }
 
+    let numeroGenerado;
+    do {
+        numeroGenerado = Math.floor(Math.random() * numeroMaximo) + 1;
+    } while (listaNumerosSorteados.includes(numeroGenerado));
+
+    listaNumerosSorteados.push(numeroGenerado);
+    return numeroGenerado;
 }
 
 function condicionesIniciales() {
-    asignarTextoElemento('h1','Juego del número secreto!');
-    asignarTextoElemento('p',`Indica un número del 1 al ${numeroMaximo}`);
+    asignarTextoElemento('h1', '🎮 Juego del número secreto!');
+    asignarTextoElemento('#mensaje', `Indica un número del 1 al ${numeroMaximo}`);
     numeroSecreto = generarNumeroSecreto();
     intentos = 1;
 }
 
 function reiniciarJuego() {
-    //limpiar la caja
     limpiarCaja();
-    //indicar mensaje de intervalos de numero
-    //generar el numero aletorio
-    //inicializar el numero de juegos
     condicionesIniciales();
-    //desabilitar el boton de nuevo juego
     document.querySelector('#reiniciar').setAttribute('disabled', 'true');
 }
 
+// ✅ Asignar eventos desde JS (mejor que onclick en HTML)
+document.querySelector('#formJuego').addEventListener('submit', (e) => {
+    e.preventDefault(); // evita que recargue la página
+    verificarIntento();
+});
+document.querySelector('#reiniciar').addEventListener('click', reiniciarJuego);
+
+// Iniciar juego al cargar
 condicionesIniciales();

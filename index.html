@@ -18,21 +18,29 @@
         <div class="container__contenido">
             <div class="container__informaciones">
                 <div class="container__texto">
-                    <h1></h1>
-                    <p class="texto__parrafo"></p>
+                    <h1>Adivina el número secreto</h1>
+                    <p class="texto__parrafo">Intenta adivinar el número entre 1 y 10.</p>
                 </div>
-                <input type="number" id="valorUsuario" max="10" class="container__input">
-                <div class="chute container__botones">
-                    <button onclick="verificarIntento();" class="container__boton">Intentar</button>
-                    <button onclick="reiniciarJuego" class="container__boton" id="reiniciar" disabled>Nuevo juego</button>
-                </div>
+
+                <!-- Usamos un formulario para mejorar accesibilidad -->
+                <form id="formJuego" onsubmit="verificarIntento(); return false;">
+                    <label for="valorUsuario" class="visually-hidden">Número</label>
+                    <input type="number" id="valorUsuario" max="10" min="1" required class="container__input"
+                        placeholder="Escribe un número">
+
+                    <div class="chute container__botones">
+                        <button type="submit" class="container__boton">Intentar</button>
+                        <button type="button" onclick="reiniciarJuego();" class="container__boton" id="reiniciar"
+                            disabled>Nuevo juego</button>
+                    </div>
+                </form>
             </div>
-            <img src="./img/ia.png" alt="Una persona mirando a la izquierda" class="container__imagen-persona" />
+
+            <!-- Imagen con un alt más descriptivo -->
+            <img src="./img/ia.png" alt="Ilustración de una inteligencia artificial pensando un número"
+                class="container__imagen-persona" />
         </div>
     </div>
-
-
-
 
     <script src="app.js" defer></script>
 </body>
