@@ -18,30 +18,23 @@
         <div class="container__contenido">
             <div class="container__informaciones">
                 <div class="container__texto">
-                    <h1>Adivina el número secreto</h1>
-                    <!-- ✅ AGREGADO id="mensaje" aquí -->
-                    <p class="texto__parrafo" id="mensaje">Intenta adivinar el número entre 1 y 10.</p>
+                    <h1></h1>
+                    <p class="texto__parrafo"></p>
                 </div>
-
-                <form id="formJuego">
-                    <label for="valorUsuario" class="visually-hidden">Número</label>
-                    <input type="number" id="valorUsuario" max="10" min="1" required class="container__input"
-                        placeholder="Escribe un número">
-
-                    <div class="chute container__botones">
-                        <button type="submit" class="container__boton">Intentar</button>
-                        <!-- ✅ ELIMINADOS los onclick inline, ahora se manejan en JS -->
-                        <button type="button" class="container__boton" id="reiniciar" disabled>Nuevo juego</button>
-                    </div>
-                </form>
+                <input type="number" id="valorUsuario" min="1" max="10" class="container__input">
+                <div class="chute container__botones">
+                    <button onclick="verificarIntento();" class="container__boton">Intentar</button>
+                    <button onclick="reiniciarJuego();" class="container__boton" id="reiniciar" disabled>Nuevo juego</button>
+                </div>
             </div>
-
-            <img src="./img/ia.png" alt="Ilustración de una inteligencia artificial pensando un número"
-                class="container__imagen-persona" />
+            <img src="./img/ia.png" alt="Una persona mirando a la izquierda" class="container__imagen-persona" />
         </div>
     </div>
 
-    <script src="app.js" defer></script>
+
+
+    <script src="app.js"></script>
+
 </body>
 
 </html>
