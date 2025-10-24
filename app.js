@@ -64,12 +64,15 @@ function reiniciarJuego() {
     document.querySelector('#reiniciar').setAttribute('disabled', 'true');
 }
 
-// ✅ Asignar eventos desde JS (mejor que onclick en HTML)
-document.querySelector('#formJuego').addEventListener('submit', (e) => {
-    e.preventDefault(); // evita que recargue la página
-    verificarIntento();
-});
-document.querySelector('#reiniciar').addEventListener('click', reiniciarJuego);
+// ✅ Esperar a que el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', function() {
+    // Asignar eventos desde JS
+    document.querySelector('#formJuego').addEventListener('submit', (e) => {
+        e.preventDefault(); // evita que recargue la página
+        verificarIntento();
+    });
+    document.querySelector('#reiniciar').addEventListener('click', reiniciarJuego);
 
-// Iniciar juego al cargar
-condicionesIniciales();
+    // Iniciar juego al cargar
+    condicionesIniciales();
+});
